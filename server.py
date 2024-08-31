@@ -16,8 +16,9 @@ def get_weather():
         city = "New Delhi"
 
     weather_data, bg_image = get_current_weather(city)
+
     if not weather_data['cod'] == 200:
-        return render_template("city-not-found.html")
+        return render_template("city-not-found.html", bg_image = bg_image)
         
     return render_template(
         "weather.html",
