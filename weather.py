@@ -6,7 +6,7 @@ import os
 load_dotenv()
 
 def get_current_weather(city="Kansas City"):
-    request_url= f'https://api.openweathermap.org/data/2.5/weather?appid={os.getenv("API_KEY")}&q={city}&units=imperial'
+    request_url= f'https://api.openweathermap.org/data/2.5/weather?appid={os.getenv("API_KEY")}&q={city}&units=metric'
 
     weather_data = requests.get(request_url).json()
 
@@ -15,7 +15,9 @@ def get_current_weather(city="Kansas City"):
 if __name__ == "__main__":
     print('\n***Get Weather Conditions***')
     city = input("\nPlease enter a city name: ")
+    if not bool(city.strip()):
+        city = "New Delhi"
     weather_data = get_current_weather(city)
     print("\n")
     pprint(weather_data)
-    
+
