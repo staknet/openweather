@@ -15,15 +15,20 @@ def get_weather():
     if not bool(city.strip()):
         city = "New Delhi"
 
-    weather_data = get_current_weather(city)
+    weather_data, bg_image = get_current_weather(city)
     if not weather_data['cod'] == 200:
         return render_template("city-not-found.html")
+        
     return render_template(
         "weather.html",
         title = weather_data["name"],
         status = weather_data["weather"][0]["description"].capitalize(),
+        icon = f'https://openweathermap.org/img/wn/{weather_data["weather"][0]["icon"]}.png',
         temp = f"{weather_data['main']['temp']:.1f}",
-        feels_like = f"{weather_data['main']['feels_like']:.1f}"
+        feels_like = f"{weather_data['main']['feels_like']:.1f}",
+        local_time = weather_data['local_time'],
+        bg_image = bg_image
+        
     )
 
 if __name__ == "__main__":
